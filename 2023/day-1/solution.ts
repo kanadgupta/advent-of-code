@@ -59,9 +59,9 @@ function getSum(part: typeof part1, fileName: string) {
       const lastMatchIndexPlusOne = (lastMatchIndexResult.index as number) + 1;
       r.lastIndex = lastMatchIndexPlusOne;
 
-      const asdf = r.exec(cal);
-      if (asdf) {
-        lastMatch = part[asdf[0] as keyof typeof part];
+      const potentialMatchAfterTheLast = r.exec(cal);
+      if (potentialMatchAfterTheLast) {
+        lastMatch = part[potentialMatchAfterTheLast[0] as keyof typeof part];
       }
 
       const currentNum = `${firstMatch}${lastMatch}`;
