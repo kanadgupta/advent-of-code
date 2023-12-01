@@ -4,11 +4,6 @@ import path from "node:path";
 // deno/ESM patch, https://stackoverflow.com/a/61829368
 const __dirname = new URL(".", import.meta.url).pathname;
 
-const file = fs.readFileSync(
-  path.resolve(__dirname, "./input.txt"),
-  { "encoding": "utf-8" },
-);
-
 const part1 = {
   "1": "1",
   "2": "2",
@@ -34,9 +29,13 @@ const part2 = {
   "nine": "9",
 } as const;
 
-const calibrations = file.trim().split("\n");
+function getSum(part: typeof part1, fileName: string) {
+  const file = fs.readFileSync(
+    path.resolve(__dirname, fileName),
+    { "encoding": "utf-8" },
+  );
 
-function getSum(part: typeof part1) {
+  const calibrations = file.trim().split("\n");
   let totalSum = 0;
   const r = new RegExp(`${Object.keys(part).join("|")}`, "g");
 
@@ -56,5 +55,12 @@ function getSum(part: typeof part1) {
   return totalSum;
 }
 
-console.log("the sum for part 1 is", getSum(part1));
-console.log("the sum for part 2 is", getSum(part2));
+const part1expected = 53334;
+const part1result = getSum(part1, "input.txt");
+console.log("the sum for part 1 is", part1result);
+console.assert(part1result === part1expected, { part1result, part1expected });
+
+const part2expected = 52834;
+const part2result = getSum(part2, "input.txt");
+console.log("the sum for part 2 is", part2result);
+console.assert(part2result === part2expected, { part2result, part2expected });
