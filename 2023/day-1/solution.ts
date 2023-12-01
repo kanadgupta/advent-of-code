@@ -56,8 +56,11 @@ function getSum(part: typeof part1, fileName: string) {
        */
       const lastMatchIndexResult = matches[matches.length - 1];
       let lastMatch = part[lastMatchIndexResult[0] as keyof typeof part];
-      const lastMatchIndexPlusOne = (lastMatchIndexResult.index as number) + 1;
-      r.lastIndex = lastMatchIndexPlusOne;
+      if (typeof lastMatchIndexResult.index === "undefined") {
+        console.error(matches);
+        throw new Error("malformed match results");
+      }
+      r.lastIndex = lastMatchIndexResult.index + 1;
 
       const potentialMatchAfterTheLast = r.exec(cal);
       if (potentialMatchAfterTheLast) {
