@@ -37,16 +37,33 @@ function getSum(part: typeof part1, fileName: string) {
 
   const calibrations = file.trim().split("\n");
   let totalSum = 0;
-  const r = new RegExp(`${Object.keys(part).join("|")}`, "g");
 
   calibrations.forEach((cal) => {
+    const r = new RegExp(`${Object.keys(part).join("|")}`, "g");
     const matches = Array.from(cal.matchAll(r));
     if (matches === null) {
       throw new Error(`no match found for ${cal}`);
     } else {
       const firstMatch = part[matches[0][0] as keyof typeof part];
-      const lastMatch =
-        part[matches[matches.length - 1][0] as keyof typeof part];
+      /**
+       * `String.prototype.matchAll()` doesn't handle overlapping matches properly
+       * (e.g., we want `twone` to yield both `two` and `one` when instead it just finds
+       *   `two`, which is a problem when trying to determine the last match),
+       * so we grab the index of the last match, increment that by one,
+       * and then search again using `RegExp.prototype.exec()`.
+       * That way, we can ensure that we're accounting for the very last match
+       * if it's different from the one that `String.prototype.matchAll()` finds.
+       */
+      const lastMatchIndexResult = matches[matches.length - 1];
+      let lastMatch = part[lastMatchIndexResult[0] as keyof typeof part];
+      const lastMatchIndexPlusOne = (lastMatchIndexResult.index as number) + 1;
+      r.lastIndex = lastMatchIndexPlusOne;
+
+      const asdf = r.exec(cal);
+      if (asdf) {
+        lastMatch = part[asdf[0] as keyof typeof part];
+      }
+
       const currentNum = `${firstMatch}${lastMatch}`;
       totalSum += Number(currentNum);
     }
@@ -64,3 +81,19 @@ const part2expected = 52834;
 const part2result = getSum(part2, "input.txt");
 console.log("the sum for part 2 is", part2result);
 console.assert(part2result === part2expected, { part2result, part2expected });
+
+const input2part1expected = 54990;
+const input2part1result = getSum(part1, "input2.txt");
+console.log("the sum for part 1 (input2.txt) is", input2part1result);
+console.assert(input2part1expected === input2part1result, {
+  input2part1expected,
+  input2part1result,
+});
+
+const input2part2expected = 54473;
+const input2part2result = getSum(part2, "input2.txt");
+console.log("the sum for part 2 (input2.txt) is", input2part2result);
+console.assert(input2part2expected === input2part2result, {
+  input2part2expected,
+  input2part2result,
+});
