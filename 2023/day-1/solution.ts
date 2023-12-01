@@ -46,7 +46,6 @@ const calibrations = file.trim().split("\n");
 let totalSum = 0;
 
 calibrations.forEach((cal) => {
-  // const asdf = r.exec(cal);
   const matches = Array.from(cal.matchAll(r));
   if (matches === null) {
     throw new Error(`no match found for ${cal}`);
