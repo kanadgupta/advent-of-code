@@ -15,3 +15,8 @@ npx tsx [path-to-solution].ts
 ```
 
 Unfortunately Node + `ts-node` requires a lot of boilerplate configuration files + installed types that feel excessive for this exercise.
+
+## Recommended Tooling
+
+- VSCode
+- [VSCode + Deno extension](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno)
