@@ -10,6 +10,10 @@ const MAX_RED = 12;
 const MAX_GREEN = 13;
 const MAX_BLUE = 14;
 
+/**
+ * Reads the file (must be in the same directory as this TS file)
+ * and returns its contents as an array, split by line
+ */
 function getInputs(fileName: string) {
   const file = fs.readFileSync(
     path.resolve(__dirname, fileName),
@@ -25,7 +29,7 @@ function getResult(games: string[]) {
 
   games.forEach((game) => {
     const [dirtyGameNumber, dirtyGameResults] = game.split(": ");
-    // grab the clean game number
+    // extract the clean game number
     const gameNumber = Number(
       Array.from(dirtyGameNumber.matchAll(/[0-9]/g)).map((r) => r[0]).join(""),
     );
@@ -67,7 +71,7 @@ function getResult(games: string[]) {
     }
 
     partTwoResult += requiredCubeCounts.red * requiredCubeCounts.green *
-    requiredCubeCounts.blue;
+      requiredCubeCounts.blue;
   });
 
   return { partOneResult, partTwoResult };
@@ -84,8 +88,14 @@ const exampleGames = [
 const partOneExpected = 8;
 const partTwoExpected = 2286;
 const { partOneResult, partTwoResult } = getResult(exampleGames);
-console.assert(partOneExpected === partOneResult, { partOneExpected, partOneResult });
-console.assert(partTwoExpected === partTwoResult, { partTwoExpected, partTwoResult });
+console.assert(partOneExpected === partOneResult, {
+  partOneExpected,
+  partOneResult,
+});
+console.assert(partTwoExpected === partTwoResult, {
+  partTwoExpected,
+  partTwoResult,
+});
 
 console.log(
   "the results are",
