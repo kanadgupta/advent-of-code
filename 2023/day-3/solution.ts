@@ -146,15 +146,17 @@ function getResult(input: string[]) {
     );
 
     symbolsToCheck.forEach((symbolItem) => {
-      const gears = numbersToCheck.filter((numItem) => {
+      const adjacentNumbers = numbersToCheck.filter((numItem) => {
         return isSymbolAdjacentToNumber(numItem, symbolItem);
       });
 
-      const gearRatio = gears.reduce((prev, current) => {
-        return prev * current.number;
-      }, 1);
+      if (adjacentNumbers.length >= 2) {
+        const gearRatio = adjacentNumbers.reduce((prev, current) => {
+          return prev * current.number;
+        }, 1);
 
-      if (gears.length >= 2) partTwoResult += gearRatio;
+        partTwoResult += gearRatio;
+      }
     });
 
     // perform the same analysis against the last row of symbols
