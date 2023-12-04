@@ -80,7 +80,10 @@ function getResult(input: string[]) {
     let copyIterator = 0;
     while (copyIterator < numberOfCopiesOfCurrentCard) {
       cardsWeWinCopiesOf.forEach((copy) => {
-        map.set(copy, map.get(copy) + 1);
+        // if the card we win a copy of exists, increment its copy count
+        if (typeof map.get(copy) !== "undefined") {
+          map.set(copy, map.get(copy) + 1);
+        }
       });
       copyIterator++;
     }
@@ -110,6 +113,18 @@ console.assert(partOneExpected === partOneResult, {
 console.assert(partTwoExpected === partTwoResult, {
   partTwoExpected,
   partTwoResult,
+});
+
+const partOneExpected2 = 14;
+const partTwoExpected2 = 30;
+const { partOneResult: partOneResult2, partTwoResult: partTwoResult2 } = getResult(getInputs("example2.txt"));
+console.assert(partOneExpected2 === partOneResult2, {
+  partOneExpected2,
+  partOneResult2,
+});
+console.assert(partTwoExpected2 === partTwoResult2, {
+  partTwoExpected2,
+  partTwoResult2,
 });
 
 const inputFile = "input.txt";
