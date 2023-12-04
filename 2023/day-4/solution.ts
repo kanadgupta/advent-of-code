@@ -69,7 +69,7 @@ function getResult(input: string[]) {
     // say we have 3 matches and the current card number is 6,
     // this weird li'l function will return [7, 8, 9]
     // used in part two
-    const cardsWeWinCopiesFor = Array.from(
+    const cardsWeWinCopiesOf = Array.from(
       { length: numberOfMatches },
       (_, i) => cardNumber + 1 + i,
     );
@@ -79,7 +79,7 @@ function getResult(input: string[]) {
     const numberOfCopiesOfCurrentCard = map.get(cardNumber);
     let copyIterator = 0;
     while (copyIterator < numberOfCopiesOfCurrentCard) {
-      cardsWeWinCopiesFor.forEach((copy) => {
+      cardsWeWinCopiesOf.forEach((copy) => {
         map.set(copy, map.get(copy) + 1);
       });
       copyIterator++;
