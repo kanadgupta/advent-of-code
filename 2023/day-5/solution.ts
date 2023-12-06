@@ -96,7 +96,7 @@ function getResult(input: string[]) {
   }
 
   /**
-   * Gets location for an seed
+   * Gets location for a single seed
    */
   function getLocation(
     seed: number,
