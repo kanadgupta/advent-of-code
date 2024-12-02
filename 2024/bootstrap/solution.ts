@@ -1,19 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
 
+// deno/ESM patch, https://stackoverflow.com/a/61829368
+const __dirname = new URL(".", import.meta.url).pathname;
+
 /**
  * Reads the file (must be in the same directory as this TS file)
  * and returns its contents as an array, split by line
  */
 function getInputs(fileName: string) {
-  const dirname = import.meta.dirname;
-
-  if (!dirname) {
-    throw new Error("dirname not found");
-  }
-
   const file = fs.readFileSync(
-    path.resolve(dirname, fileName),
+    path.resolve(__dirname, fileName),
     { "encoding": "utf-8" },
   );
 
