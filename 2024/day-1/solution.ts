@@ -24,12 +24,31 @@ function getResult(input: string[]) {
   let partOneResult = 0;
   let partTwoResult = 0;
 
+  const leftList: number[] = [];
+  const rightList: number[] = [];
+  input.forEach((row) => {
+    const [leftListItem, rightListItem] = row.split("   ").map((str) =>
+      Number(str)
+    );
+
+    leftList.push(leftListItem);
+    rightList.push(rightListItem);
+  });
+
+  leftList.sort();
+  rightList.sort();
+
+  partOneResult = leftList.reduce((prev, current, i) => {
+    const distance = Math.abs(current - rightList[i]);
+    return prev + distance;
+  }, 0);
+
   return { partOneResult, partTwoResult };
 }
 
 const example = getInputs("example.txt");
 
-const partOneExpected = Infinity;
+const partOneExpected = 11;
 const partTwoExpected = Infinity;
 const { partOneResult, partTwoResult } = getResult(example);
 console.assert(partOneExpected === partOneResult, {
