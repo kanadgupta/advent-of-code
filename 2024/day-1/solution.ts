@@ -43,13 +43,20 @@ function getResult(input: string[]) {
     return prev + distance;
   }, 0);
 
+  partTwoResult = leftList.reduce((prev, current) => {
+    const similarity = current *
+      rightList.filter((item) => item === current).length;
+
+    return prev + similarity;
+  }, 0);
+
   return { partOneResult, partTwoResult };
 }
 
 const example = getInputs("example.txt");
 
 const partOneExpected = 11;
-const partTwoExpected = Infinity;
+const partTwoExpected = 31;
 const { partOneResult, partTwoResult } = getResult(example);
 console.assert(partOneExpected === partOneResult, {
   partOneExpected,
