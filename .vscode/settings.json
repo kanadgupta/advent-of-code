@@ -3,6 +3,10 @@
   "deno.lint": true,
   "[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" },
 
+  "search.exclude": {
+    "**/2023": true
+  },
+
   // disabling all copilot
   "github.copilot.enable": {
     "*": false,
