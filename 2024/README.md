@@ -1,4 +1,4 @@
-# Advent of Code 2023
+# Advent of Code 2024
 
 My 2024 stack of choice is Deno + TypeScript (again). This might change in future years.
 
