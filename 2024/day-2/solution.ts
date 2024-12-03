@@ -21,7 +21,6 @@ function getInputs(fileName: string) {
 
 function determineSafety(levels: number[]) {
   let overallTrend: Trend = "";
-  let isSafe = true;
 
   for (let i = 0; i < levels.length - 1; i += 1) {
     let currentTrend: Trend = "";
@@ -41,13 +40,13 @@ function determineSafety(levels: number[]) {
       // this ensures that the level difference requirement is being respected
       levelDistance < 1 || levelDistance > 3
     ) {
-      isSafe = false;
+      return false;
     }
 
     overallTrend = currentTrend;
   }
 
-  return isSafe;
+  return true;
 }
 
 function getResult(input: string[]) {
