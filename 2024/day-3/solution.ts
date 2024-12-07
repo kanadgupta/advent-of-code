@@ -35,13 +35,13 @@ function getResult(input: string) {
   let partTwoResult = 0;
 
   const regex = /(mul\([0-9]+,[0-9]+\))|(do\(\))|(don't\(\))/g;
-  let match = regex.exec(input);
+  let match: RegExpExecArray | null = null;
 
   const rawResults: RegExpExecArray[] = [];
-  while (match) {
-    rawResults.push(match);
+  do {
     match = regex.exec(input);
-  }
+    if (match) rawResults.push(match);
+  } while (match);
 
   const typedResults = rawResults.map<{ type: MatchType; result: string }>(
     (res) => {
