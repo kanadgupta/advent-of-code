@@ -52,7 +52,7 @@ function getResultMatch(components: number[], result: number, radix: number) {
         if (current === "1") {
           return prev * components[i + 1];
         }
-        // 2 = aggregate
+        // 2 = concatenate (this is only for part two)
         return Number(`${prev.toString()}${components[i + 1].toString()}`);
       },
       components[0],
